@@ -20,6 +20,7 @@
         :key="word.id" 
         :username="user.username"
         :word="word" 
+        @favorite="toggleFavorite"
       />
 
     </div>
@@ -74,6 +75,9 @@ export default {
     // first method
     followUser() {
       this.followers++
+    },
+    toggleFavorite(id) {
+      console.log(`Favored words #${id}`)
     }
   },
   // lifecycle hooks -- mounted runs when the compoenet is first loaded

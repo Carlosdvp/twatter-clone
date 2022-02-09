@@ -1,5 +1,5 @@
 <template>
-	<div class="word-item">
+	<div class="word-item" @click="favoriteWord(word.id)">
 		<section class="user-profile_word">
 			<p class="word-item_user">
 				<strong>{{ username }}</strong>
@@ -22,6 +22,11 @@
 			word: {
 				type: Object,
 				required: true
+			}
+		},
+		methods: {
+			favoriteWord(id) {
+				this.$emit('favorite', id)
 			}
 		}
 	}

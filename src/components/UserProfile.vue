@@ -4,17 +4,39 @@
     <img alt="Santa Maria" src="../assets/logo.png">
 
     <div class="user-profile_user-panel">
+
       <h2 class="user-profile_username">{{ user.username }}</h2>
       <p class="user-profile_admin-badge" v-if="user.isAdmin">Admin</p>
+      <!-- folower counter -->
       <p class="user-profile_follower-count">
         Followers: <strong>{{ followers }}</strong>
       </p>
-
       <button @click="followUser">Follow</button>
+      <hr>
+
+      <!-- Form to input new words and a TExt Are for that content-->
+      <form class="user-profile_create-word" @submit.prevent="createNewWord">
+        <label for="newWord"><p>New Words</p></label>
+        <textarea id="newWord" rows="4" v-model="newWordContent"></textarea>
+        <!-- Drop down options -->
+        <div class="user-profile_create-word-type">
+          <label for="newWordType">Type: </label>
+          <select id="newWordType" v-model="selectedWordType">
+            <option :value="option.value" v-for="(option, index) in wordTypes" :key="index" >
+              {{ option.name }}
+            </option>
+          </select>
+        </div>
+        <!-- Form submit button -->
+        <button>Create</button>
+      </form>
+
+
     </div>
+
     <!-- how to iterate through an array and render the contents onscreen -->
     <div class="user-profile_word-wrapper">
-
+      <!-- Child component to hold and show the words saved in the parent component's array -->
       <WordItem 
         v-for="word in user.words" 
         :key="word.id" 
@@ -47,13 +69,19 @@ export default {
         firstName: 'Santa',
         lastName: 'Maria',
         email: 'Gunner@bullets.com',
-        isAdmin: true,
+        isAdmin: false,
         words: [
           {id: 1, content: 'I am the stars and the infinite space threof.'},
           {id: 2, content: "Practice the yoga of the Serpent's power."},
           {id: 3, content: "She who dwells in everything in the form of power."}
         ]
-      }
+      },
+      wordTypes: [
+        {value: 'draft', name: 'Draft'},
+        {value: 'instant', name: 'Instant Creation'}
+      ],
+      newWordContent: '',
+      selectedWordType: 'instant'
     }
   },
   watch: {
@@ -78,6 +106,16 @@ export default {
     },
     toggleFavorite(id) {
       console.log(`Favored words #${id}`)
+    },
+    // method to submit newly created words
+    createNewWord() {
+      if (this.newWordContent && this.selectedWordType !== 'draft') {
+        this.user.words.unshift({
+          id: this.user.words.length+1,
+          content: this.newWordContent
+        })
+      }
+      this.newWordContent = '';
     }
   },
   // lifecycle hooks -- mounted runs when the compoenet is first loaded
@@ -116,8 +154,8 @@ img {
   border-radius: 7px;
   border: 1px solid lightsteelblue;
   align-content: center;
-  width: 100%;
-  height: 30vh;
+  width: 30vw;
+  height: 100%;
 }
 
 .user-profile_admin-badge {
@@ -136,6 +174,24 @@ img {
 button {
   width: 3rem;
   margin: 1rem auto;
+}
+
+hr {
+  width: 100%;
+  color: lightsteelblue;
+}
+
+.user-profile_create-word {
+
+}
+
+textarea#newWord {
+  width: 90%;
+}
+
+
+.user-profile_create-word-type {
+  padding: 1.5rem 0 0;
 }
 
 </style>

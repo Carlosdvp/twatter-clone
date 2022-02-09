@@ -49,3 +49,14 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ### Template Conditionals, loops and events
 
+	- use v-if to show/hide items on the screen based on a data point
+	- used a v-for loop to render a list from anarray onto the screen
+	- create and emit an event from a child component to a parent component
+		- use a method in the paent to call the function and use the event emited in the child
+
+
+## Part 3
+
+### Forms and Handlin user input
+
+- 

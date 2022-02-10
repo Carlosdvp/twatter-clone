@@ -15,8 +15,12 @@
       <hr>
 
       <!-- Form to input new words and a TExt Are for that content-->
-      <form class="user-profile_create-word" @submit.prevent="createNewWord">
-        <label for="newWord"><p>New Words</p></label>
+      <form 
+        class="user-profile_create-word" 
+        @submit.prevent="createNewWord"
+        :class="{'-exceeded': characterCount > 180}"
+      >
+        <label for="newWord"><p>New Words ({{ characterCount }}/180)</p></label>
         <textarea id="newWord" rows="4" v-model="newWordContent"></textarea>
         <!-- Drop down options -->
         <div class="user-profile_create-word-type">
@@ -97,6 +101,10 @@ export default {
     // first computed property
     fullname() {
       return `${this.user.firstName} ${this.user.lastName}`
+    },
+    // lets keep a count of the number of characters written
+    characterCount() {
+      return this.newWordContent.length;
     }
   },
   methods: {
@@ -181,17 +189,21 @@ hr {
   color: lightsteelblue;
 }
 
-.user-profile_create-word {
+/* The Form */
 
-}
+.user-profile_create-word {}
 
 textarea#newWord {
   width: 90%;
 }
 
-
 .user-profile_create-word-type {
   padding: 1.5rem 0 0;
+}
+
+.-exceeded {
+  color:  orangered;
+  border: 2px dashed orangered;
 }
 
 </style>

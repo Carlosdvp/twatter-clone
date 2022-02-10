@@ -57,6 +57,15 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ## Part 3
 
-### Forms and Handlin user input
+### Forms and Handling user input
 
-- 
+	- adding a form with a dropdown selector
+	- make the default dynamic and clear the text area after each submission
+	- using v-model to link elements from the page to methods and data parameters in the app
+
+
+## Part 4 
+
+### Dynamic Styling. SCSS, and Global styling
+
+	-

@@ -77,4 +77,16 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ### The Vue3 composition API
 
+	- a basic intro, could be useful at some point
+	- will not be using it here, sticking to Vue3 syntax for now
+	- needed to change some of the items from the tutorial to use the standard Vue 3 syntax without the composition api
+
+
+## Part 6
+
+### Routing with Vue Router
+
+	- 
+	- 
+	- 
 	- 

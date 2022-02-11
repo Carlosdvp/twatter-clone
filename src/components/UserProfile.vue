@@ -1,8 +1,6 @@
 <template>
   <div class="user-profile">
 
-    <img alt="Santa Maria" src="../assets/logo.png">
-
     <div class="user-profile_user-panel">
 
       <h2 class="user-profile_username">{{ user.username }}</h2>
@@ -34,22 +32,25 @@
         <!-- Form submit button -->
         <button>Create</button>
       </form>
-
-
     </div>
+
+    <section>
+      <img alt="Santa Maria" src="../assets/logo.png">
+
+      <div class="user-profile_word-wrapper">
+        <!-- Child component to hold and show the words saved in the parent component's array -->
+        <WordItem 
+          v-for="word in user.words" 
+          :key="word.id" 
+          :username="user.username"
+          :word="word" 
+          @favorite="toggleFavorite"
+        />
+      </div>
+    </section>
 
     <!-- how to iterate through an array and render the contents onscreen -->
-    <div class="user-profile_word-wrapper">
-      <!-- Child component to hold and show the words saved in the parent component's array -->
-      <WordItem 
-        v-for="word in user.words" 
-        :key="word.id" 
-        :username="user.username"
-        :word="word" 
-        @favorite="toggleFavorite"
-      />
 
-    </div>
 
   </div>
 </template>
@@ -148,22 +149,22 @@ img {
 .user-profile {
   display: grid;
   /* grid-template-rows: 1fr 1fr; */
-  grid-template-columns: 50% 20%;
+  grid-template-columns: 50% 50%;
   width: 100%;
-  padding: 1rem;
+  padding: 1rem 0;
 }
 
 .user-profile_user-panel {
   display: flex;
   flex-direction: column;
-  margin: 0 40px;
-  padding: 1rem;
+  margin: 0 3rem;
+  padding: 0.5rem 0;
   background-color: whitesmoke;
   border-radius: 7px;
   border: 1px solid lightsteelblue;
   align-content: center;
-  width: 30vw;
-  height: 100%;
+  width: 33vw;
+  height: auto;
 }
 
 .user-profile_admin-badge {
@@ -190,10 +191,15 @@ hr {
 
 /* The Form */
 
-.user-profile_create-word {}
+.user-profile_create-word {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+}
 
 textarea#newWord {
-  width: 90%;
+  width: 81%;
+  align-self: center;
 }
 
 .user-profile_create-word-type {

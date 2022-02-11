@@ -68,4 +68,13 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ### Dynamic Styling. SCSS, and Global styling
 
-	-
+	- dynamic stylin is using vue to programatically add/remove css classes, for example, in response to user input
+	- SCSS was briefly discussed, not interested
+	- global styling mentioned as a complement and alternative to scoped component styles
+
+
+## Part 5
+
+### The Vue3 composition API
+
+	- 

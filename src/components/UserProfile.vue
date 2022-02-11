@@ -176,8 +176,7 @@ img {
   align-self: center;
 }
 
-.user-profile_word-wrapper {
-}
+.user-profile_word-wrapper {}
 
 button {
   width: 3rem;

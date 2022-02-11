@@ -1,20 +1,17 @@
 <template>
   <div class="home">
-    <NavBar/>
-    <UserProfile/>
+    <h2>Home</h2>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import UserProfile from '@/components/UserProfile.vue'
-import NavBar from '@/components/NavBar.vue'
+// import UserProfile from '@/components/UserProfile.vue'
+
 
 export default {
   name: 'Home',
   components: {
-    UserProfile,
-    NavBar
   }
 }
 </script>

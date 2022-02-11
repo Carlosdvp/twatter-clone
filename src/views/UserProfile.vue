@@ -4,6 +4,7 @@
     <div class="user-profile_user-panel">
 
       <h2 class="user-profile_username">{{ user.username }}</h2>
+      <h3>{{ userId }}</h3>
       <p class="user-profile_admin-badge" v-if="user.isAdmin">Admin</p>
       <!-- folower counter -->
       <p class="user-profile_follower-count">
@@ -58,6 +59,7 @@
 <script>
 // @ is an alias to /src
 import WordItem from '@/components/WordItem.vue'
+import { useRoute } from 'vue-router'
 
 export default {
   name: 'UserProfile',
@@ -86,7 +88,9 @@ export default {
         {value: 'instant', name: 'Instant Creation'}
       ],
       newWordContent: '',
-      selectedWordType: 'instant'
+      selectedWordType: 'instant',
+      // for the in-view routing we need this thing here
+      route: useRoute()
     }
   },
   watch: {
@@ -106,6 +110,10 @@ export default {
     // lets keep a count of the number of characters written
     characterCount() {
       return this.newWordContent.length;
+    },
+    //get the user profile based on the userID
+    userId() {
+      return this.route.params.userId
     }
   },
   methods: {

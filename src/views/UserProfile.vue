@@ -4,7 +4,7 @@
     <div class="user-profile_user-panel">
 
       <h2 class="user-profile_username">{{ state.user.username }}</h2>
-      <h3>{{ userId.value }}</h3>
+      <!-- <h3>{{ userId }}</h3> -->
       <p class="user-profile_admin-badge" v-if="state.user.isAdmin">Admin</p>
       <!-- folower counter -->
       <p class="user-profile_follower-count">
@@ -80,7 +80,7 @@ export default {
     const state = reactive({
       followers: 0,
       // import user data
-      user: users[userId.value - 1],
+      user: users[userId.value - 1] || userId.value[0],
       wordTypes: [
         {value: 'draft', name: 'Draft'},
         {value: 'instant', name: 'Instant Creation'}
@@ -88,7 +88,6 @@ export default {
       newWordContent: '',
       selectedWordType: 'instant'
     })
-
 
     // METHODS -- composition api
     // to submit newly created words
@@ -132,9 +131,7 @@ export default {
   },
   methods: {
     // first method
-    // followUser() {
-    //   this.followers++
-    // },
+    // followUser() { this.followers++ },
     toggleFavorite(id) {
       console.log(`Favored words #${id}`)
     }

@@ -38,4 +38,8 @@ export default {
   flex-direction: column;
 }
 
+.users-list a {
+  
+}
+
 </style>

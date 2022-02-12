@@ -3,29 +3,29 @@
 
     <div class="user-profile_user-panel">
 
-      <h2 class="user-profile_username">{{ user.username }}</h2>
-      <h3>{{ userId }}</h3>
-      <p class="user-profile_admin-badge" v-if="user.isAdmin">Admin</p>
+      <h2 class="user-profile_username">{{ state.user.username }}</h2>
+      <h3>{{ userId.value }}</h3>
+      <p class="user-profile_admin-badge" v-if="state.user.isAdmin">Admin</p>
       <!-- folower counter -->
       <p class="user-profile_follower-count">
-        Followers: <strong>{{ followers }}</strong>
+        Followers: <strong>{{ state.followers }}</strong>
       </p>
       <button @click="followUser">Follow</button>
       <hr>
 
-      <!-- Form to input new words and a TExt Are for that content-->
+      <!-- Form to input new words and a Text Are for that content-->
       <form 
-        class="user-profile_create-word" 
+        class="user-profile_create-word"
         @submit.prevent="createNewWord"
         :class="{'-exceeded': characterCount > 180}"
       >
         <label for="newWord"><p>New Words ({{ characterCount }}/180)</p></label>
-        <textarea id="newWord" rows="4" v-model="newWordContent"></textarea>
+        <textarea id="newWord" rows="4" v-model="state.newWordContent"></textarea>
         <!-- Drop down options -->
         <div class="user-profile_create-word-type">
           <label for="newWordType">Type: </label>
-          <select id="newWordType" v-model="selectedWordType">
-            <option :value="option.value" v-for="(option, index) in wordTypes" :key="index" >
+          <select id="newWordType" v-model="state.selectedWordType">
+            <option :value="option.value" v-for="(option, index) in state.wordTypes" :key="index" >
               {{ option.name }}
             </option>
           </select>
@@ -41,9 +41,9 @@
       <div class="user-profile_word-wrapper">
         <!-- Child component to hold and show the words saved in the parent component's array -->
         <WordItem 
-          v-for="word in user.words" 
+          v-for="word in state.user.words" 
           :key="word.id" 
-          :username="user.username"
+          :username="state.user.username"
           :word="word" 
           @favorite="toggleFavorite"
         />
@@ -60,37 +60,59 @@
 // @ is an alias to /src
 import WordItem from '@/components/WordItem.vue'
 import { useRoute } from 'vue-router'
+import { reactive, computed } from 'vue'
+// import the users file - our little mock db
+import { users } from '../assets/users'
 
 export default {
   name: 'UserProfile',
+  // this is one way to use the compostion api inside am options ali app
   components: {
     WordItem
   },
-  data() {
-    return {
+  setup(props, context) {
+    const route = useRoute()
+
+    // COMPUTED PROPERTIES -- composition API
+    const characterCount = computed(() => state.newWordContent.length)
+    const userId = computed(() => route.params.userId)
+
+    const state = reactive({
       followers: 0,
-      // placeholder usr object
-      user: {
-        id: 1,
-        username: 'Queen of Heaven',
-        firstName: 'Santa',
-        lastName: 'Maria',
-        email: 'Gunner@bullets.com',
-        isAdmin: false,
-        words: [
-          {id: 1, content: 'I am the stars and the infinite space threof.'},
-          {id: 2, content: "Practice the yoga of the Serpent's power."},
-          {id: 3, content: "She who dwells in everything in the form of power."}
-        ]
-      },
+      // import user data
+      user: users[userId.value - 1],
       wordTypes: [
         {value: 'draft', name: 'Draft'},
         {value: 'instant', name: 'Instant Creation'}
       ],
       newWordContent: '',
-      selectedWordType: 'instant',
-      // for the in-view routing we need this thing here
-      route: useRoute()
+      selectedWordType: 'instant'
+    })
+
+
+    // METHODS -- composition api
+    // to submit newly created words
+    function createNewWord() {
+      if (state.newWordContent && state.selectedWordType !== 'draft') {
+        state.user.words.unshift({
+          id: state.user.words.length+1,
+          content: state.newWordContent
+        })
+      }
+      state.newWordContent = '';
+    }
+
+    // counter method
+    function followUser() {
+      state.followers++
+    }
+
+    return {
+      state,
+      characterCount,
+      createNewWord,
+      userId,
+      followUser
     }
   },
   watch: {
@@ -106,40 +128,22 @@ export default {
     // first computed property
     fullname() {
       return `${this.user.firstName} ${this.user.lastName}`
-    },
-    // lets keep a count of the number of characters written
-    characterCount() {
-      return this.newWordContent.length;
-    },
-    //get the user profile based on the userID
-    userId() {
-      return this.route.params.userId
     }
   },
   methods: {
     // first method
-    followUser() {
-      this.followers++
-    },
+    // followUser() {
+    //   this.followers++
+    // },
     toggleFavorite(id) {
       console.log(`Favored words #${id}`)
-    },
-    // method to submit newly created words
-    createNewWord() {
-      if (this.newWordContent && this.selectedWordType !== 'draft') {
-        this.user.words.unshift({
-          id: this.user.words.length+1,
-          content: this.newWordContent
-        })
-      }
-      this.newWordContent = '';
     }
   },
   // lifecycle hooks -- mounted runs when the compoenet is first loaded
   // API calls can be implemented here
-  mounted() {
-    this.followUser() // function is run the moment the component is loaded
-  }
+  // mounted() {
+  //   this.followUser() // function is run the moment the component is loaded
+  // }
 
 }
 </script>

@@ -77,6 +77,7 @@ export default {
     const characterCount = computed(() => state.newWordContent.length)
     const userId = computed(() => route.params.userId)
 
+    // component STATE
     const state = reactive({
       followers: 0,
       // import user data

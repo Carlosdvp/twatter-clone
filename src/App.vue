@@ -8,11 +8,24 @@
 
 <script>
 import NavBar from './components/NavBar.vue'
+// import the store
+import { useStore } from 'vuex'
+// we also need to use computed properties
+import { computed } from 'vue'
 
 export default {
   name: 'App',
   components: {
     NavBar
+  },
+  setup() {
+    const store = useStore()
+    // we need a local variable to hold our user data
+    const user = computed(() => store.state.User.user)
+    
+    return {
+      user
+    }
   }
 }
 </script>

@@ -86,7 +86,24 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ### Routing with Vue Router
 
-	- 
-	- 
-	- 
-	- 
+	- created a list of links on the Home page
+	- each one routing to one of the preset users
+	- added an Admin page and its respective routing
+	- added a rule to only allow an admin to view the Admin page to the router index.js file
+
+
+
+## Part 7
+
+### Global State Management with Vuex 4
+
+#### Steps - Overview
+
+* Get the user from the store (router/index.js)
+* If there is no user, dispatch the set action and get the default user
+* this runs the setUser action
+* which triggers the SET_USER mutation
+* which then changes the state
+
+* to make the code cleaner and more readable for larger applicatons the use of modules is recommended
+	- in this case in particular, move the store data from the main store file to it's own Users.js file

@@ -39,7 +39,14 @@ export default {
 }
 
 .users-list a {
-  
+  text-decoration: none;
+  padding: 0.5rem;
 }
+
+.users-list a:hover {
+  color: steelblue;
+  transform: scale(1.1, 1.2);
+}
+
 
 </style>

@@ -107,3 +107,10 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 * to make the code cleaner and more readable for larger applicatons the use of modules is recommended
 	- in this case in particular, move the store data from the main store file to it's own Users.js file
+
+
+## Part 8
+
+### Deploying to Heroku
+
+- and also to Github pages for easy linking to my website

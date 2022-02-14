@@ -7,7 +7,7 @@ const enforce = require('express-sslify');
 let app = express();
 
 // add the middleware to the express server
-app.use(enforce.HTTPS({ trustProtoServer: true }));
+// app.use(enforce.HTTPS({ trustProtoServer: true }));
 app.use(serveStatic(__dirname + '/dist'));
 app.use(history());
 

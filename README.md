@@ -113,4 +113,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ### Deploying to Heroku
 
-- and also to Github pages for easy linking to my website
+- 

@@ -36,7 +36,7 @@
     </div>
 
     <section>
-      <img alt="Santa Maria" src="../assets/logo.png">
+      <img alt="Santa Maria" src="../assets/Queen.png" v-if="state.user.username === 'Queen of Heaven'">
 
       <div class="user-profile_word-wrapper">
         <!-- Child component to hold and show the words saved in the parent component's array -->
